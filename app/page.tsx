@@ -1,29 +1,107 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useMemo, useEffect, CSSProperties } from 'react';
 import { SmartGrid } from './components/smart-grid';
 
-
 export default function Home() {
+    const [numberOfCards, setNumberOfCards] = useState<number>(10);
+    const [minWidthCards, setMinWidthCards] = useState<number>(220);
+    
 
-    const card_count = 5;
-    const [cards] = useState(Array.from({length: card_count}, (_, i) => i + 1));
+    const handleNumberInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        const numValue = value === '' ? 0 : parseInt(value, 10);
+        setNumberOfCards(numValue);
+    };
 
-    const styles = {
+    const handleWidthInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        const numValue = value === '' ? 0 : parseInt(value, 10);
+        setMinWidthCards(numValue);
+    };
+
+
+    const cards = useMemo(() => {
+        const newCards = Array.from({length: numberOfCards}, (_, i) => i + 1);
+        return newCards;
+    }, [numberOfCards]);
+
+    const width = useMemo(() => {
+        const newWidth = minWidthCards;
+        return newWidth;
+    }, [minWidthCards]);
+
+
+    const styles: { [key: string]: CSSProperties } = {
         container: {
             display: 'grid',
             maxWidth: '1600px',
             margin: '0 auto',
             padding: '24px',
             gap: '16px',
+            color: '#21272B',
+        },
+        input: {
+            padding: '8px',
+            borderRadius: '8px',
+            border: '1px solid #D9DFE6',
+        },
+        inputLabel: {
+            display: 'flex',
+            marginBottom: '8px',
+        },
+        inputWithLabel: {
+            display: 'flex',
+            flexDirection: 'column',
+            flex: '1 0 0',
+            minWidth: '220px',
+            maxWidth: '320px',
+        },
+        form: {
+            display: 'flex',
+            gap: '16px',
+            marginBottom: '16px',
+            flexWrap: 'wrap',
+            width: '100%',
         },
     };
 
-
+    
     return (
         <div style={styles.container}>
+            <h1 className='text-4xl font-semibold'>Smart Grid Viewer</h1>
+            
+            <div style={styles.form}>
+                <div style={styles.inputWithLabel}>
+                    <label htmlFor="numberInput" style={styles.inputLabel}>
+                        Number of Cards:
+                    </label>
+                    <input
+                        style={styles.input}
+                        id="numberInput"
+                        type="number"
+                        value={numberOfCards}
+                        onChange={handleNumberInputChange}
+                    />
+                </div>
+
+                <div style={styles.inputWithLabel}>
+                    <label htmlFor="widthInput" style={styles.inputLabel}>
+                        Min Width:
+                    </label>
+                    <input
+                        style={styles.input}
+                        id="widthInput"
+                        type="number"
+                        value={minWidthCards}
+                        onChange={handleWidthInputChange}
+                    />
+                </div>
+            </div>
+            
             <SmartGrid 
                 cards={cards}
+                width={width}
             />
         </div>
     );

@@ -1,5 +1,6 @@
 interface CardsProps {
     cards: number[];
+    width: number;
 }
 
 export const SmartGrid = (props : CardsProps) => {
@@ -21,6 +22,7 @@ export const SmartGrid = (props : CardsProps) => {
             borderRadius: '16px',
             padding: '32px',
             textAlign: 'center' as const,
+            flex: `${props.width}px`,
         },
         cardNumber: {
             fontSize: '32px',
