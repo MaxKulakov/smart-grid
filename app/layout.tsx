@@ -15,6 +15,16 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Smart Grid Viever",
   description: "Smart Viewer",
+  openGraph: {
+    title: "Smart Grid Viever",
+    description: "Smart Viewer",
+    siteName: "Smart Grid Viever",
+  },
+  twitter: {
+    title: "Smart Grid Viever",
+    description: "Smart Viewer",
+  },
+
 };
 
 export default function RootLayout({
