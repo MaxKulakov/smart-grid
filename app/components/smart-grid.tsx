@@ -6,7 +6,7 @@ interface CardsProps {
 export const SmartGrid = (props : CardsProps) => {
 
     let half, topCards, bottomCards;
-    if (props.cards.length > 3) {
+    if (props.cards.length > 4) {
         half = Math.ceil(props.cards.length / 2);
         topCards = props.cards.slice(0, half);
         bottomCards = props.cards.slice(half);
