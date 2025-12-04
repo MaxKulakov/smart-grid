@@ -14,13 +14,13 @@ export const AsymGrid = (props : AsymGridProps) => {
         const isEvenRow = row % 2 == 0;
         const positionInRow = index % 2;
 
-
         if (isEvenRow) {
             return positionInRow == 0 ? 'lg:col-span-5' : 'lg:col-span-7';
         } else {
             return positionInRow == 0 ? 'lg:col-span-7' : 'lg:col-span-5';
         }
     };
+
 
     const styles = {
         card: {
@@ -36,6 +36,7 @@ export const AsymGrid = (props : AsymGridProps) => {
         },
     };
 
+    
     return (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 w-full">
             {props.cards.map((number, index) => (
