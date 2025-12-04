@@ -92,7 +92,7 @@ export default function Home() {
             <div style={styles.form}>
                 <div style={styles.inputWithLabel}>
                     <label htmlFor="componentSelect" style={styles.inputLabel}>
-                        Component to display:
+                        Grid:
                     </label>
                     <select
                         style={styles.select}
