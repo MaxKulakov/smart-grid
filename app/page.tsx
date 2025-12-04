@@ -7,6 +7,7 @@ import { AsymGrid } from './components/asym-grid';
 export default function Home() {
     const [numberOfCards, setNumberOfCards] = useState<number>(10);
     const [minWidthCards, setMinWidthCards] = useState<number>(220);
+    const [selectedComponent, setSelectedComponent] = useState<'SmartGrid' | 'AsymGrid'>('SmartGrid');
     
 
     const handleNumberInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,6 +20,10 @@ export default function Home() {
         const value = e.target.value;
         const numValue = value === '' ? 0 : parseInt(value, 10);
         setMinWidthCards(numValue);
+    };
+
+    const handleComponentChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedComponent(e.target.value as 'SmartGrid' | 'AsymGrid');
     };
 
 
@@ -46,6 +51,7 @@ export default function Home() {
             padding: '8px',
             borderRadius: '8px',
             border: '1px solid #D9DFE6',
+            backgroundColor: 'white',
         },
         inputLabel: {
             display: 'flex',
@@ -74,6 +80,21 @@ export default function Home() {
             
             <div style={styles.form}>
                 <div style={styles.inputWithLabel}>
+                    <label htmlFor="componentSelect" style={styles.inputLabel}>
+                        Component to display:
+                    </label>
+                    <select
+                        style={styles.input}
+                        id="componentSelect"
+                        value={selectedComponent}
+                        onChange={handleComponentChange}
+                    >
+                        <option value="SmartGrid">Smart Grid</option>
+                        <option value="AsymGrid">Asymmetrical Grid</option>
+                    </select>
+                </div>
+
+                <div style={styles.inputWithLabel}>
                     <label htmlFor="numberInput" style={styles.inputLabel}>
                         Number of Cards:
                     </label>
@@ -100,17 +121,23 @@ export default function Home() {
                 </div>
             </div>
 
-            <h2 className='text-3xl font-semibold'>Smart Grid</h2>
-            <SmartGrid 
-                cards={cards}
-                width={width}
-            />
-
-            <h2 className='text-3xl font-semibold mt-4'>Asymmetrical Grid</h2>
-            <AsymGrid
-                cards={cards}
-                width={width}
-            />
+            {selectedComponent === 'SmartGrid' ? (
+                <>
+                    <h2 className='text-3xl font-semibold'>Smart Grid</h2>
+                    <SmartGrid 
+                        cards={cards}
+                        width={width}
+                    />
+                </>
+            ) : (
+                <>
+                    <h2 className='text-3xl font-semibold'>Asymmetrical Grid</h2>
+                    <AsymGrid
+                        cards={cards}
+                        width={width}
+                    />
+                </>
+            )}
         </div>
     );
 }
