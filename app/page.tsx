@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useEffect, CSSProperties } from 'react';
 import { SmartGrid } from './components/smart-grid';
+import { AsymGrid } from './components/asym-grid';
 
 export default function Home() {
     const [numberOfCards, setNumberOfCards] = useState<number>(10);
@@ -98,8 +99,15 @@ export default function Home() {
                     />
                 </div>
             </div>
-            
+
+            <h2 className='text-3xl font-semibold'>Smart Grid</h2>
             <SmartGrid 
+                cards={cards}
+                width={width}
+            />
+
+            <h2 className='text-3xl font-semibold mt-4'>Asymmetrical Grid</h2>
+            <AsymGrid
                 cards={cards}
                 width={width}
             />
